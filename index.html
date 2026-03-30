@@ -234,8 +234,9 @@
 
   const W = () => canvas.width;
   const H = () => canvas.height;
-  const cx = () => W() / 2;
-  const cy = () => H() / 2 + 60;
+  const leftHeadX = () => W() * 0.25;
+  const rightHeadX = () => W() * 0.75;
+  const headY = () => H() / 2 + 80;
 
   function addNoise(ctx, x, y, w, h, opacity) {
     const imgData = ctx.createImageData(w, h);
@@ -246,8 +247,7 @@
     ctx.putImageData(imgData, x, y);
   }
 
-  function drawBeard(time, mouseAngle, mouseDist) {
-    const x = cx(), y = cy();
+  function drawBeard(x, y, time, mouseAngle, mouseDist) {
     const mouseInfluence = Math.max(0, 1 - mouseDist / 500);
     
     // 8 major tentacles in beard
@@ -304,8 +304,7 @@
     }
   }
 
-  function drawHead(time) {
-    const x = cx(), y = cy();
+  function drawHead(x, y, time) {
     
     // Massive head — ellipse
     const headGrad = ctx.createRadialGradient(x, y - 20, 20, x, y, 110);
@@ -423,15 +422,30 @@
 
   function loop() {
     ctx.clearRect(0, 0, W(), H());
+    ctx.globalAlpha = 0.15;
     time += 0.016;
 
-    const dx = mouse.x - cx();
-    const dy = mouse.y - cy();
-    const mouseAngle = Math.atan2(dy, dx);
-    const mouseDist = Math.sqrt(dx*dx + dy*dy);
+    const hY = headY();
+    const lX = leftHeadX();
+    const rX = rightHeadX();
 
-    drawBeard(time, mouseAngle, mouseDist);
-    drawHead(time);
+    // Left head
+    const dlx = mouse.x - lX;
+    const dly = mouse.y - hY;
+    const mouseAngleL = Math.atan2(dly, dlx);
+    const mouseDistL = Math.sqrt(dlx*dlx + dly*dly);
+    
+    drawBeard(lX, hY, time, mouseAngleL, mouseDistL);
+    drawHead(lX, hY, time);
+
+    // Right head
+    const drx = mouse.x - rX;
+    const dry = mouse.y - hY;
+    const mouseAngleR = Math.atan2(dry, drx);
+    const mouseDistR = Math.sqrt(drx*drx + dry*dry);
+    
+    drawBeard(rX, hY, time, mouseAngleR, mouseDistR);
+    drawHead(rX, hY, time);
 
     requestAnimationFrame(loop);
   }
