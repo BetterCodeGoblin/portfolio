@@ -422,10 +422,10 @@
 
   function loop() {
     ctx.clearRect(0, 0, W(), H());
-    ctx.globalAlpha = 0.15;
+    ctx.globalAlpha = 0.80;
     time += 0.016;
 
-    const hY = headY();
+    const hY = headY() - 120;
     const lX = leftHeadX();
     const rX = rightHeadX();
 
