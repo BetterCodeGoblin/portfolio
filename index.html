@@ -209,8 +209,23 @@
   </div>
   <p class="hero-scroll">✦ &nbsp; Scroll to explore &nbsp; ✦</p>
 
-  <!-- CTHULHU CANVAS -->
-  <canvas id="cthulhu" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.35;"></canvas>
+  <!-- CTHULHU IMAGES -->
+  <div id="cthulhu-left" style="position:absolute; left:5%; top:15%; width:150px; height:150px; background:url('https://www.pngegg.com/png-ydpaa#goog_rewarded') no-repeat center/contain; opacity:0.95; filter:drop-shadow(0 0 15px rgba(100,60,150,0.6)); pointer-events:none; z-index:0;"></div>
+  <div id="cthulhu-right" style="position:absolute; right:5%; top:15%; width:150px; height:150px; background:url('https://www.pngegg.com/png-ydpaa#goog_rewarded') no-repeat center/contain; opacity:0.95; filter:drop-shadow(0 0 15px rgba(100,60,150,0.6)); pointer-events:none; z-index:0;"></div>
+
+  <script>
+    // Track mouse for eye effects (optional animation)
+    document.getElementById('hero').addEventListener('mousemove', e => {
+      const left = document.getElementById('cthulhu-left');
+      const right = document.getElementById('cthulhu-right');
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const dx = (e.clientX - centerX) * 0.05;
+      const dy = (e.clientY - centerY) * 0.05;
+      left.style.transform = `translate(${-dx}px, ${-dy}px)`;
+      right.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+  </script>
 </div>
 
 <script>
