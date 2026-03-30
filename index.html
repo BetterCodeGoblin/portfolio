@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>James Sypherd — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f2e8d5;
+    --paper-dark: #e8d9be;
+    --paper-darker: #d4c4a0;
+    --ink: #1e1408;
+    --ink-mid: #3d2b12;
+    --ink-faded: #7a6040;
+    --rust: #8b3a1a;
+    --rust-light: #b04a22;
+    --aged-gold: #9a7c3a;
+    --sepia: #c4a882;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--ink); color: var(--ink); font-family: 'Libre Baskerville', serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+    background: var(--ink); border-bottom: 1px solid rgba(154,124,58,0.35);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 60px; height: 60px;
+  }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 15px; letter-spacing: 0.12em; color: var(--sepia); text-decoration: none; font-style: italic; }
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .nav-links a { font-family: 'Special Elite', cursive; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-faded); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--sepia); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; background: var(--ink);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 120px 60px 80px; position: relative; overflow: hidden;
+  }
+  .hero-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(154,124,58,0.12); pointer-events: none; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .hero-ring:nth-child(1) { width: 480px; height: 480px; }
+  .hero-ring:nth-child(2) { width: 700px; height: 700px; border-color: rgba(154,124,58,0.07); }
+  .hero-ring:nth-child(3) { width: 920px; height: 920px; border-color: rgba(154,124,58,0.04); }
+  .hero-corner { position: absolute; width: 70px; height: 70px; pointer-events: none; opacity: 0.3; }
+  .hero-corner.tl { top: 80px; left: 60px; } .hero-corner.tr { top: 80px; right: 60px; transform: scaleX(-1); }
+  .hero-corner.bl { bottom: 36px; left: 60px; transform: scaleY(-1); } .hero-corner.br { bottom: 36px; right: 60px; transform: scale(-1); }
+  .hero-badge { font-family: 'Special Elite', cursive; font-size: 10px; letter-spacing: 0.4em; color: var(--sepia); text-transform: uppercase; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.4s; position: relative; z-index: 1; }
+  .hero-rule { width: 180px; height: 1px; background: linear-gradient(to right, transparent, var(--aged-gold), transparent); margin: 0 auto 30px; opacity: 0; animation: fadeUp 0.9s ease forwards 0.6s; }
+  h1 { font-family: 'Playfair Display', serif; font-weight: 900; line-height: 0.95; color: var(--paper); opacity: 0; animation: fadeUp 0.9s ease forwards 0.7s; position: relative; z-index: 1; }
+  h1 .first { font-style: italic; color: var(--sepia); font-weight: 400; font-size: clamp(28px, 4vw, 56px); display: block; letter-spacing: 0.06em; }
+  h1 .last { display: block; font-size: clamp(56px, 9vw, 120px); }
+  .hero-sub { margin-top: 24px; font-family: 'IM Fell English', serif; font-size: 16px; font-style: italic; color: var(--ink-faded); opacity: 0; animation: fadeUp 0.9s ease forwards 1s; position: relative; z-index: 1; }
+  .hero-creds { margin-top: 32px; display: flex; opacity: 0; animation: fadeUp 0.9s ease forwards 1.2s; position: relative; z-index: 1; }
+  .cred { padding: 10px 24px; border: 1px solid rgba(154,124,58,0.25); font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sepia); }
+  .cred + .cred { border-left: none; }
+  .hero-scroll { position: absolute; bottom: 32px; font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.35em; color: rgba(196,168,130,0.35); text-transform: uppercase; opacity: 0; animation: fadeUp 0.9s ease forwards 1.6s; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SECTIONS */
+  .paper-section { background: var(--paper); position: relative; }
+  .dark-section { background: var(--ink); }
+  section { max-width: 1100px; margin: 0 auto; padding: 100px 60px; position: relative; }
+  .sec-head { text-align: center; margin-bottom: 64px; }
+  .sec-num { font-family: 'Special Elite', cursive; font-size: 10px; letter-spacing: 0.5em; color: var(--ink-faded); text-transform: uppercase; margin-bottom: 14px; }
+  h2 { font-family: 'Playfair Display', serif; font-size: clamp(34px, 5vw, 60px); font-weight: 900; line-height: 1.1; color: var(--ink); }
+  h2 em { font-style: italic; color: var(--rust); }
+  .orn { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 18px 0 0; }
+  .orn::before, .orn::after { content: ''; flex: 1; max-width: 100px; height: 1px; background: var(--ink-faded); opacity: 0.25; }
+  .orn span { font-size: 12px; color: var(--aged-gold); letter-spacing: 0.25em; }
+
+  /* ABOUT */
+  .about-layout { display: grid; grid-template-columns: 310px 1fr; gap: 70px; align-items: start; }
+  .portrait-wrap { position: relative; }
+  .portrait-box { background: var(--paper-darker); aspect-ratio: 3/4; border: 1px solid var(--ink-faded); position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+  .portrait-box::after { content: ''; position: absolute; inset: 6px; border: 1px solid rgba(122,96,64,0.22); pointer-events: none; }
+  .portrait-placeholder-text { font-family: 'Special Elite', cursive; font-size: 10px; letter-spacing: 0.2em; color: var(--ink-faded); text-transform: uppercase; text-align: center; }
+  .portrait-caption { margin-top: 10px; font-family: 'IM Fell English', serif; font-style: italic; font-size: 13px; color: var(--ink-faded); text-align: center; }
+  .degree-stamp { position: absolute; bottom: -18px; right: -18px; width: 108px; height: 108px; background: var(--rust); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 3px solid var(--rust-light); outline: 2px dashed rgba(255,255,255,0.18); outline-offset: 4px; transform: rotate(14deg); z-index: 2; padding: 10px; }
+  .stamp-top { font-family: 'Special Elite', cursive; font-size: 7.5px; letter-spacing: 0.12em; color: rgba(242,232,213,0.85); text-transform: uppercase; text-align: center; line-height: 1.4; }
+  .stamp-main { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--paper); text-align: center; line-height: 1.1; }
+  .stamp-sub { font-family: 'Special Elite', cursive; font-size: 7px; color: rgba(242,232,213,0.65); text-align: center; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+  .lead { font-family: 'Playfair Display', serif; font-size: 20px; font-style: italic; line-height: 1.65; color: var(--ink-mid); margin-bottom: 26px; border-left: 3px solid var(--rust); padding-left: 22px; }
+  .about-text p { font-size: 15px; line-height: 1.9; color: var(--ink-mid); margin-bottom: 18px; }
+  .edu-block { margin-top: 34px; padding: 26px; background: var(--paper-dark); border: 1px solid var(--paper-darker); border-left: 3px solid var(--rust); position: relative; }
+  .edu-block::before { content: '🎓'; position: absolute; top: -13px; left: 18px; font-size: 18px; background: var(--paper-dark); padding: 0 6px; }
+  .edu-label { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--ink-faded); margin-bottom: 14px; }
+  .edu-deg { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+  .edu-deg + .edu-deg { margin-top: 12px; }
+  .edu-school { font-family: 'IM Fell English', serif; font-style: italic; font-size: 13px; color: var(--rust); }
+
+  /* GAMES */
+  #games { max-width: 1100px; margin: 0 auto; padding: 100px 60px; }
+  #games h2 { color: var(--paper); }
+  #games .sec-num { color: rgba(196,168,130,0.4); }
+  #games .orn::before, #games .orn::after { background: var(--sepia); }
+  .games-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 60px; background: rgba(154,124,58,0.12); border: 1px solid rgba(154,124,58,0.18); }
+  .game-card { background: #161008; padding: 42px 38px; position: relative; transition: background 0.3s; overflow: hidden; }
+  .game-card::before { content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 1px; background: linear-gradient(to right, transparent, var(--aged-gold), transparent); opacity: 0; transition: opacity 0.4s; }
+  .game-card:hover { background: #1e160a; }
+  .game-card:hover::before { opacity: 1; }
+  .game-type { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rust-light); margin-bottom: 18px; }
+  .game-type::before { content: '◆ '; font-size: 6px; }
+  .game-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--paper); margin-bottom: 12px; line-height: 1.2; }
+  .game-desc { font-size: 13px; line-height: 1.8; color: var(--ink-faded); }
+  .game-foot { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(154,124,58,0.12); display: flex; justify-content: space-between; }
+  .game-plat { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.18em; color: rgba(196,168,130,0.38); text-transform: uppercase; }
+  .game-yr { font-family: 'Playfair Display', serif; font-style: italic; font-size: 13px; color: rgba(196,168,130,0.3); }
+  .game-card.feat { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding: 52px 46px; }
+  .feat-badge { display: inline-block; padding: 4px 14px; border: 1px solid var(--aged-gold); font-family: 'Special Elite', cursive; font-size: 8px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--aged-gold); margin-bottom: 18px; }
+  .feat-visual { aspect-ratio: 4/3; background: linear-gradient(135deg, #0a0800, #1a1206, #0d0a04); border: 1px solid rgba(154,124,58,0.18); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; font-size: 64px; }
+  .feat-visual::after { content: ''; position: absolute; inset: 12px; border: 1px dashed rgba(154,124,58,0.12); }
+
+  /* ACTING */
+  .acting-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-bottom: 56px; align-items: start; }
+  .acting-intro .lead { font-size: 18px; }
+  .acting-intro p { font-size: 14px; line-height: 1.88; color: var(--ink-mid); margin-top: 16px; }
+
+  /* DEMO REEL */
+  .reel-section { margin-bottom: 56px; }
+  .reel-label {
+    font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--ink-faded); text-align: center;
+    margin-bottom: 20px; display: flex; align-items: center; gap: 14px;
+  }
+  .reel-label::before, .reel-label::after { content: ''; flex: 1; height: 1px; background: var(--ink-faded); opacity: 0.2; }
+  .reel-embed-wrap {
+    position: relative; width: 100%; aspect-ratio: 16/9;
+    background: var(--paper-darker); border: 1px solid var(--ink-faded); overflow: hidden;
+  }
+  .reel-placeholder {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 16px;
+    background: var(--paper-dark);
+  }
+  .reel-placeholder::after { content: ''; position: absolute; inset: 8px; border: 1px dashed rgba(122,96,64,0.2); pointer-events: none; }
+  .reel-play-icon {
+    width: 72px; height: 72px; border-radius: 50%;
+    border: 2px solid rgba(122,96,64,0.35);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .reel-play-icon svg { margin-left: 4px; }
+  .reel-placeholder-title { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--ink-faded); }
+  .reel-placeholder-sub { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(122,96,64,0.5); text-align: center; line-height: 1.8; }
+
+  /* CREDITS TABLE */
+  .credits-table { border: 1px solid var(--ink-faded); margin-bottom: 56px; }
+  .credits-head { background: var(--ink); color: var(--sepia); padding: 13px 22px; display: grid; grid-template-columns: 80px 1fr 1fr 110px; gap: 14px; }
+  .credits-head span { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; }
+  .cr { display: grid; grid-template-columns: 80px 1fr 1fr 110px; gap: 14px; padding: 16px 22px; border-bottom: 1px solid rgba(122,96,64,0.18); transition: background 0.2s; align-items: center; }
+  .cr:last-child { border-bottom: none; }
+  .cr:hover { background: var(--paper-dark); }
+  .cr .yr { font-family: 'Special Elite', cursive; font-size: 12px; color: var(--rust); }
+  .cr .tit { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: var(--ink); }
+  .cr .rol { font-family: 'IM Fell English', serif; font-style: italic; font-size: 14px; color: var(--ink-mid); }
+  .cr .med { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-faded); text-align: right; }
+
+  /* STUNT SECTION */
+  .stunt-section { }
+  .stunt-header-row {
+    display: flex; align-items: center; gap: 16px; margin-bottom: 24px;
+  }
+  .stunt-title-text { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--ink); }
+  .stunt-title-text em { font-style: italic; color: var(--rust); }
+  .stunt-badge {
+    display: inline-block; padding: 4px 12px;
+    border: 1px solid rgba(139,58,26,0.35);
+    font-family: 'Special Elite', cursive; font-size: 8px;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--rust);
+  }
+  .stunt-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: rgba(122,96,64,0.12); border: 1px solid rgba(122,96,64,0.2); }
+  .stunt-card { background: var(--paper-dark); padding: 28px 26px; transition: background 0.2s; }
+  .stunt-card:hover { background: var(--paper); }
+  .stunt-card-num { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.3em; color: rgba(122,96,64,0.35); margin-bottom: 12px; }
+  .stunt-card-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .stunt-card-desc { font-size: 12.5px; line-height: 1.75; color: var(--ink-faded); }
+
+  /* BUTTONS */
+  .btn { display: inline-block; padding: 12px 34px; background: var(--rust); font-family: 'Special Elite', cursive; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--paper); text-decoration: none; border: 1px solid var(--rust-light); transition: background 0.3s; position: relative; }
+  .btn::before { content: ''; position: absolute; inset: 3px; border: 1px solid rgba(242,232,213,0.18); pointer-events: none; }
+  .btn:hover { background: var(--rust-light); }
+  .btn-o { background: transparent; color: var(--ink); border-color: var(--ink-faded); }
+  .btn-o::before { border-color: rgba(30,20,8,0.12); }
+  .btn-o:hover { background: var(--ink); color: var(--paper); }
+
+  /* FOOTER */
+  footer { background: var(--ink); border-top: 1px solid rgba(154,124,58,0.18); text-align: center; padding: 80px 40px 56px; }
+  .foot-name { font-family: 'Playfair Display', serif; font-size: 40px; font-style: italic; font-weight: 400; color: var(--sepia); margin-bottom: 6px; }
+  .foot-title { font-family: 'Special Elite', cursive; font-size: 10px; letter-spacing: 0.38em; color: var(--ink-faded); text-transform: uppercase; margin-bottom: 34px; }
+  .foot-links { display: flex; justify-content: center; gap: 0; list-style: none; margin-bottom: 44px; }
+  .foot-links a { display: block; padding: 10px 22px; border: 1px solid rgba(154,124,58,0.2); border-right: none; font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-faded); text-decoration: none; transition: all 0.3s; }
+  .foot-links li:last-child a { border-right: 1px solid rgba(154,124,58,0.2); }
+  .foot-links a:hover { background: rgba(154,124,58,0.1); color: var(--sepia); }
+  .foot-copy { font-family: 'IM Fell English', serif; font-style: italic; font-size: 12px; color: rgba(122,96,64,0.38); }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.75s ease, transform 0.75s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 860px) {
+    nav { padding: 0 20px; }
+    section, #games { padding: 70px 22px; }
+    .about-layout, .game-card.feat, .acting-intro { grid-template-columns: 1fr; gap: 40px; }
+    .games-grid, .stunt-grid { grid-template-columns: 1fr; }
+    .credits-head, .cr { grid-template-columns: 64px 1fr 1fr; }
+    .credits-head span:last-child, .cr .med { display: none; }
+    .hero-creds { flex-direction: column; gap: 2px; }
+    .cred + .cred { border-left: 1px solid rgba(154,124,58,0.25); }
+    .hero-corner { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">James Sypherd</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="#acting">Acting</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-ring"></div><div class="hero-ring"></div><div class="hero-ring"></div>
+  <div class="hero-corner tl"><svg viewBox="0 0 70 70" fill="none"><path d="M4 4 L4 38 M4 4 L38 4" stroke="#9a7c3a" stroke-width="1"/><path d="M12 12 L12 30 M12 12 L30 12" stroke="#9a7c3a" stroke-width="0.5" opacity="0.5"/><circle cx="4" cy="4" r="2" fill="#9a7c3a"/></svg></div>
+  <div class="hero-corner tr"><svg viewBox="0 0 70 70" fill="none"><path d="M4 4 L4 38 M4 4 L38 4" stroke="#9a7c3a" stroke-width="1"/><path d="M12 12 L12 30 M12 12 L30 12" stroke="#9a7c3a" stroke-width="0.5" opacity="0.5"/><circle cx="4" cy="4" r="2" fill="#9a7c3a"/></svg></div>
+  <div class="hero-corner bl"><svg viewBox="0 0 70 70" fill="none"><path d="M4 4 L4 38 M4 4 L38 4" stroke="#9a7c3a" stroke-width="1"/><path d="M12 12 L12 30 M12 12 L30 12" stroke="#9a7c3a" stroke-width="0.5" opacity="0.5"/><circle cx="4" cy="4" r="2" fill="#9a7c3a"/></svg></div>
+  <div class="hero-corner br"><svg viewBox="0 0 70 70" fill="none"><path d="M4 4 L4 38 M4 4 L38 4" stroke="#9a7c3a" stroke-width="1"/><path d="M12 12 L12 30 M12 12 L30 12" stroke="#9a7c3a" stroke-width="0.5" opacity="0.5"/><circle cx="4" cy="4" r="2" fill="#9a7c3a"/></svg></div>
+
+  <p class="hero-badge">✦ &nbsp; Game Designer · Voice Actor · Stuntman · Engineer &nbsp; ✦</p>
+  <div class="hero-rule"></div>
+  <h1>
+    <span class="first">James</span>
+    <span class="last">Sypherd</span>
+  </h1>
+  <p class="hero-sub">Engineering worlds, designing games, voicing characters</p>
+  <div class="hero-creds">
+    <div class="cred">M.S. Biomedical Engineering</div>
+    <div class="cred">B.S. Biomedical Engineering</div>
+    <div class="cred">Arizona State University</div>
+  </div>
+  <p class="hero-scroll">✦ &nbsp; Scroll to explore &nbsp; ✦</p>
+</div>
+
+<!-- ABOUT -->
+<div class="paper-section">
+<section id="about">
+  <div class="sec-head reveal">
+    <div class="sec-num">Chapter I</div>
+    <h2>About <em>Me</em></h2>
+    <div class="orn"><span>✦ ✦ ✦</span></div>
+  </div>
+  <div class="about-layout">
+    <div class="portrait-wrap reveal">
+      <div class="portrait-box">
+        <svg width="52" height="52" viewBox="0 0 64 64" fill="none" opacity="0.28"><circle cx="32" cy="22" r="12" stroke="#3d2b12" stroke-width="1.5"/><path d="M10 54c0-12.15 9.85-22 22-22s22 9.85 22 22" stroke="#3d2b12" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <div class="portrait-placeholder-text">Your Photo Here</div>
+      </div>
+      <div class="portrait-caption">James Sypherd</div>
+      <div class="degree-stamp">
+        <div class="stamp-top">Biomedical</div>
+        <div class="stamp-main">M.S.</div>
+        <div class="stamp-main" style="font-size:11px;">B.S.</div>
+        <div class="stamp-sub">ASU · Engineering</div>
+      </div>
+    </div>
+    <div class="about-text reveal">
+      <p class="lead">"From molecular biology to game mechanics — I've always been fascinated by the systems that drive human experience."</p>
+      <p>I'm James Sypherd — game designer, voice actor, stuntman, and biomedical engineer. My graduate work at Arizona State University trained me to think rigorously about complex systems, but my creative passions pulled me toward the most intricate system of all: human storytelling.</p>
+      <p>I design games that blend analytical thinking with emotional depth — from Roblox dodgeball arenas modeled on real university campuses, to tabletop RPGs where one player becomes the villain, to custom engines built in Rust. When I step in front of a camera or a microphone, I bring that same precision to inhabiting a character.</p>
+      <p>My biomedical engineering background isn't separate from my creative work — it's woven through it. I've built motion capture conversion tools, voiced fictional horrors for indie games, trained in stunt performance, and designed gameplay mechanics grounded in real biomechanics. The thread running through all of it is a belief that the most memorable experiences happen when science and storytelling meet.</p>
+      <div class="edu-block">
+        <div class="edu-label">Education — Arizona State University</div>
+        <div class="edu-deg">Master of Science in Biomedical Engineering</div>
+        <div class="edu-school">Ira A. Fulton Schools of Engineering</div>
+        <div class="edu-deg">Bachelor of Science in Biomedical Engineering</div>
+        <div class="edu-school">Ira A. Fulton Schools of Engineering</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- GAMES -->
+<div class="dark-section">
+<section id="games">
+  <div class="sec-head reveal">
+    <div class="sec-num" style="color:rgba(196,168,130,0.4)">Chapter II</div>
+    <h2 style="color:var(--paper)">The <em style="color:var(--sepia)">Games</em></h2>
+    <div class="orn"><span>✦ ✦ ✦</span></div>
+  </div>
+  <div class="games-grid reveal">
+    <div class="game-card feat">
+      <div>
+        <div class="feat-badge">Featured Title</div>
+        <div class="game-type">Video Game · Roblox & UEFN</div>
+        <div class="game-title" style="font-size:32px;">Butterwood</div>
+        <p class="game-desc" style="font-size:14.5px; margin-top:12px; line-height:1.85; margin-bottom:28px;">A dodgeball game built to faithfully simulate the Arizona State University campus — giving players a sports experience rooted in a place they know. James contributed core game mechanics on the Roblox build, including zone closure systems inspired by battle royale design and spawn point architecture. The project is simultaneously being developed in Unreal Editor for Fortnite (UEFN), where James serves as the sole designer, translating the entire experience into Fortnite's creative ecosystem.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <span style="display:inline-block; padding:6px 16px; border:1px solid rgba(154,124,58,0.4); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--aged-gold);">In Development</span>
+          <span style="display:inline-block; padding:6px 16px; border:1px solid rgba(154,124,58,0.4); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--aged-gold);">Roblox · Fortnite UEFN</span>
+        </div>
+      </div>
+      <div class="feat-visual">🏐</div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-type">Game Engine · Rust</div>
+      <div class="game-title">nAIVE</div>
+      <p class="game-desc">A cross-platform 3D game engine built in Rust with scene description via YAML and scripting via Lua. Features 20+ working demos covering terrain, particles, physics, combat, and shader effects. Designed for custom, high-performance game development with real-time rendering via WebGPU/Vulkan.</p>
+      <div class="game-foot"><span class="game-plat">Rust · WebGPU/Vulkan · YAML/Lua</span><span class="game-yr">2026</span></div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-type">Roguelike · Godot 4</div>
+      <div class="game-title">Thunderwalker 2D</div>
+      <p class="game-desc">A creepy 2D dungeon crawler inspired by Inscryption aesthetics. Hunt mythological creatures through 4 interconnected rooms, facing 3 enemy types and a challenging Wendigo boss with 3-phase AI. Real-time combat with health management and procedural difficulty scaling.</p>
+      <div class="game-foot"><span class="game-plat">Godot 4 · GDScript</span><span class="game-yr">2026</span></div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-type">Fitness Game · Unity 6</div>
+      <div class="game-title">Imagine</div>
+      <p class="game-desc">A sisyphean exercise game suite that ties rowing machines, cycling, and strength training to engaging game narratives. Integrates with Concept2 PM5 SDK and BLE heart rate monitors for real biometric feedback tied to gameplay progression.</p>
+      <div class="game-foot"><span class="game-plat">Unity 6 · C# · Real Equipment Integration</span><span class="game-yr">2026</span></div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-type">Methodology · Development Practice</div>
+      <div class="game-title">Spec Coding</div>
+      <p class="game-desc">Comment-driven development using AI assistants like GitHub Copilot. Write detailed specs in function comments, let AI implement, verify with tests. Framework works in TypeScript, GDScript, C#, Rust, and Python for reproducible, spec-compliant code.</p>
+      <div class="game-foot"><span class="game-plat">Best Practice · TDD · Multi-Language</span><span class="game-yr">Methodology</span></div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-type">Tabletop RPG · Card Game</div>
+      <div class="game-title">Hunting Grounds</div>
+      <p class="game-desc">A cooperative RPG card game for four players in the vein of Gloomhaven — with a twist. One rotating player takes on the role of the villain each combat, forcing the party to face a genuinely strategic, human-controlled adversary. The debut campaign pits hunters against Dracula himself, with the full system designed to support future expansion packs and new villains.</p>
+      <div class="game-foot"><span class="game-plat">4 Players · Expandable</span><span class="game-yr">Original</span></div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-type">Software · Engineering Tool</div>
+      <div class="game-title">C3D → FBX Mocap Converter</div>
+      <p class="game-desc">A purpose-built conversion tool that transforms motion capture data from the biomechanics-standard .c3d format into .fbx files compatible with Unreal Engine 5's MetaHuman retargeting pipeline. Designed to help children's hospitals gamify biomechanics capture sessions — turning clinical data into interactive UE5 experiences for young patients.</p>
+      <div class="game-foot"><span class="game-plat">Research · Animation · UE5</span><span class="game-yr">Tool</span></div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ACTING -->
+<div class="paper-section">
+<section id="acting">
+  <div class="sec-head reveal">
+    <div class="sec-num">Chapter III</div>
+    <h2>Screen, <em>Stage</em> & Stunts</h2>
+    <div class="orn"><span>✦ ✦ ✦</span></div>
+  </div>
+
+  <!-- INTRO TEXT -->
+  <div class="acting-intro reveal">
+    <div class="acting-intro-text">
+      <p class="lead">"The most compelling characters — whether Grimm or Lovecraft — live at the intersection of the uncanny and the deeply human."</p>
+      <p>For James, acting is a natural extension of his design sensibility. Where game design asks "how will a player move through this world?" — performance asks "how does this person move through theirs?" The analytical instincts sharpen the craft. The craft keeps the analysis human.</p>
+      <p>From playing a mysterious figure named Grimm in a comedy web series to voicing one of literature's most iconic horror writers, and training in stunt performance, James brings a precise, physical, and character-driven approach to every role.</p>
+    </div>
+    <div>
+      <a href="#contact" class="btn-o btn" style="display:block; text-align:center; margin-bottom:16px;">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- VOICEOVER SECTION -->
+  <div class="reel-section reveal" style="margin-bottom: 56px;">
+    <div class="reel-label" style="color: var(--ink-faded);"><span>✦ &nbsp; Voice Acting Work &nbsp; ✦</span></div>
+    <p style="text-align: center; font-size: 14px; color: var(--ink-mid); margin-bottom: 32px; line-height: 1.8;">Select projects and appearances featuring voice performance and character work:</p>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px;">
+      <div style="background: rgba(242,232,213,0.03); padding: 24px; border: 1px solid rgba(122,96,64,0.15); border-radius: 4px; text-align: center;">
+        <div style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px;">Masterworks of Horror</div>
+        <div style="font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin-bottom: 16px;">Voice Acting — Indie Game</div>
+        <a href="#" style="display: inline-block; padding: 8px 20px; border: 1px solid rgba(122,96,64,0.3); font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); text-decoration: none; transition: all 0.3s;">View Project →</a>
+      </div>
+
+      <div style="background: rgba(242,232,213,0.03); padding: 24px; border: 1px solid rgba(122,96,64,0.15); border-radius: 4px; text-align: center;">
+        <div style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px;">Creature Feature</div>
+        <div style="font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin-bottom: 16px;">Character Voice — Sci-Fi Short</div>
+        <a href="#" style="display: inline-block; padding: 8px 20px; border: 1px solid rgba(122,96,64,0.3); font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); text-decoration: none; transition: all 0.3s;">View Project →</a>
+      </div>
+
+      <div style="background: rgba(242,232,213,0.03); padding: 24px; border: 1px solid rgba(122,96,64,0.15); border-radius: 4px; text-align: center;">
+        <div style="font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--ink); margin-bottom: 6px;">Additional Projects</div>
+        <div style="font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin-bottom: 16px;">Voice & Character Work</div>
+        <a href="#" style="display: inline-block; padding: 8px 20px; border: 1px solid rgba(122,96,64,0.3); font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); text-decoration: none; transition: all 0.3s;">View Projects →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMO REEL -->
+  <div class="reel-section reveal">
+    <div class="reel-label"><span>✦ &nbsp; Acting Demo Reel &nbsp; ✦</span></div>
+    <div class="reel-embed-wrap">
+      <div class="reel-placeholder">
+        <div class="reel-play-icon">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <path d="M10 7l14 7-14 7V7z" fill="#7a6040"/>
+          </svg>
+        </div>
+        <div class="reel-placeholder-title">Demo Reel Coming Soon</div>
+        <div class="reel-placeholder-sub">Paste your YouTube or Vimeo embed URL here<br>See the comment in the HTML for instructions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTING CREDITS -->
+  <div class="credits-table reveal">
+    <div class="credits-head">
+      <span>Year</span><span>Title</span><span>Role</span><span>Medium</span>
+    </div>
+    <div class="cr"><div class="yr">Current</div><div class="tit">Masterworks of Horror</div><div class="rol">Voice Actor</div><div class="med">Video Game</div></div>
+  </div>
+
+  <!-- STUNT WORK -->
+  <div class="stunt-section reveal">
+    <div class="stunt-header-row">
+      <div class="stunt-title-text">Stunt <em>Work</em></div>
+      <div class="stunt-badge">Physical Performance</div>
+    </div>
+    <div class="stunt-grid">
+      <div class="stunt-card">
+        <div class="stunt-card-num">001</div>
+        <div class="stunt-card-title">Production Title</div>
+        <div class="stunt-card-desc">Brief description of your stunt role — what you did, what skills it required, what production it was for.</div>
+      </div>
+      <div class="stunt-card">
+        <div class="stunt-card-num">002</div>
+        <div class="stunt-card-title">Production Title</div>
+        <div class="stunt-card-desc">Brief description of your stunt role — fight choreography, falls, wire work, vehicle work, or other specialties.</div>
+      </div>
+      <div class="stunt-card">
+        <div class="stunt-card-num">003</div>
+        <div class="stunt-card-title">Add More as Needed</div>
+        <div class="stunt-card-desc">Each card can represent a production, a discipline, or a specific skill set. Add or remove cards freely.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="foot-name">James Sypherd</div>
+  <div class="foot-title">Game Designer &nbsp;·&nbsp; Voice Actor &nbsp;·&nbsp; Stuntman &nbsp;·&nbsp; Biomedical Engineer</div>
+  <ul class="foot-links">
+    <li><a href="mailto:sypherdj1@gmail.com">Email</a></li>
+    <li><a href="https://github.com/BetterCodeGoblin">GitHub</a></li>
+    <li><a href="#">itch.io</a></li>
+    <li><a href="#">LinkedIn</a></li>
+    <li><a href="#">Instagram</a></li>
+  </ul>
+  <p class="foot-copy">© 2026 James Sypherd — All rights reserved.</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 90);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
