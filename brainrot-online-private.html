@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brainrot Online — Private GDD Access</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #181d29;
+    --border: #2d3648;
+    --text: #e8edf6;
+    --muted: #94a3b8;
+    --accent: #f59e0b;
+    --accent2: #22d3ee;
+    --bad: #fb7185;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at top, #182033, #0f1117 55%);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding: 24px;
+  }
+  .shell {
+    width: min(100%, 520px);
+    background: rgba(24,29,41,0.94);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  h1 { margin: 0 0 10px; font-size: 1.8rem; }
+  p { margin: 0 0 16px; color: var(--muted); line-height: 1.6; }
+  label { display: block; font-size: 0.86rem; color: var(--accent2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.14em; }
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #0f1522;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 14px;
+  }
+  button {
+    width: 100%;
+    padding: 14px 16px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent), #f97316);
+    color: #0a0a0a;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .hint { margin-top: 14px; font-size: 0.9rem; color: var(--muted); }
+  .error { margin-top: 12px; color: var(--bad); min-height: 1.2em; }
+</style>
+</head>
+<body>
+  <div class="shell">
+    <h1>Brainrot Online GDD</h1>
+    <p>Private quick-access gate for the Roblox micro-MMO pitch. Enter the password to jump to the hosted design page.</p>
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="Enter password" />
+    <button id="go">Open GDD</button>
+    <div class="error" id="error"></div>
+    <div class="hint">This is lightweight convenience gating, not real security.</div>
+  </div>
+<script>
+  const PASSWORD = 'pineapple';
+  const DESTINATION = 'https://kato-gdds.vercel.app/brainrot-online.html';
+  const input = document.getElementById('pw');
+  const button = document.getElementById('go');
+  const error = document.getElementById('error');
+
+  function submit() {
+    if ((input.value || '').trim().toLowerCase() === PASSWORD) {
+      window.location.href = DESTINATION;
+      return;
+    }
+    error.textContent = 'Wrong password.';
+  }
+
+  button.addEventListener('click', submit);
+  input.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') submit();
+  });
+</script>
+</body>
+</html>
