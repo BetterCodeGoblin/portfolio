@@ -18,6 +18,8 @@
     --rust-light: #b04a22;
     --aged-gold: #9a7c3a;
     --sepia: #c4a882;
+    --spectral: #5f7f67;
+    --violet: #3f315f;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -55,6 +57,11 @@
   .hero-creds { margin-top: 32px; display: flex; opacity: 0; animation: fadeUp 0.9s ease forwards 1.2s; position: relative; z-index: 1; }
   .cred { padding: 10px 24px; border: 1px solid rgba(154,124,58,0.25); font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sepia); }
   .cred + .cred { border-left: none; }
+  .hero-paths { margin-top: 34px; display: grid; grid-template-columns: repeat(3, minmax(150px, 1fr)); gap: 2px; width: min(740px, 100%); border: 1px solid rgba(154,124,58,0.2); background: rgba(154,124,58,0.12); opacity: 0; animation: fadeUp 0.9s ease forwards 1.35s; position: relative; z-index: 1; }
+  .hero-path { background: rgba(22,16,8,0.78); padding: 18px 16px; text-decoration: none; transition: background 0.25s, transform 0.25s; }
+  .hero-path:hover { background: rgba(39,29,13,0.9); transform: translateY(-2px); }
+  .hero-path strong { display: block; font-family: 'Playfair Display', serif; font-size: 18px; color: var(--paper); margin-bottom: 5px; }
+  .hero-path span { display: block; font-family: 'Special Elite', cursive; font-size: 8px; letter-spacing: 0.2em; line-height: 1.55; text-transform: uppercase; color: rgba(196,168,130,0.58); }
   .hero-scroll { position: absolute; bottom: 32px; font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.35em; color: rgba(196,168,130,0.35); text-transform: uppercase; opacity: 0; animation: fadeUp 0.9s ease forwards 1.6s; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -93,9 +100,15 @@
   #games h2 { color: var(--paper); }
   #games .sec-num { color: rgba(196,168,130,0.4); }
   #games .orn::before, #games .orn::after { background: var(--sepia); }
+  .section-note { max-width: 680px; margin: 22px auto 0; text-align: center; font-size: 14px; line-height: 1.8; color: rgba(196,168,130,0.58); }
+  .portfolio-filter { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 40px 0 0; }
+  .filter-btn { cursor: pointer; background: transparent; border: 1px solid rgba(154,124,58,0.28); color: rgba(196,168,130,0.62); padding: 10px 15px; font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; transition: background 0.25s, color 0.25s, border-color 0.25s; }
+  .filter-btn:hover, .filter-btn.active { background: rgba(154,124,58,0.14); border-color: rgba(196,168,130,0.55); color: var(--sepia); }
   .games-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 60px; background: rgba(154,124,58,0.12); border: 1px solid rgba(154,124,58,0.18); }
   .game-card { background: #161008; padding: 42px 38px; position: relative; transition: background 0.3s; overflow: hidden; }
+  .game-card.hidden { display: none; }
   .game-card::before { content: ''; position: absolute; top: 0; left: 24px; right: 24px; height: 1px; background: linear-gradient(to right, transparent, var(--aged-gold), transparent); opacity: 0; transition: opacity 0.4s; }
+  .game-card::after { content: attr(data-sigil); position: absolute; right: 24px; top: 22px; font-family: 'Playfair Display', serif; font-size: 54px; color: rgba(154,124,58,0.07); line-height: 1; pointer-events: none; }
   .game-card:hover { background: #1e160a; }
   .game-card:hover::before { opacity: 1; }
   .game-type { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rust-light); margin-bottom: 18px; }
@@ -110,10 +123,29 @@
   .feat-badge { display: inline-block; padding: 4px 14px; border: 1px solid var(--aged-gold); font-family: 'Special Elite', cursive; font-size: 8px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--aged-gold); margin-bottom: 18px; }
   .feat-visual { aspect-ratio: 4/3; background: linear-gradient(135deg, #0a0800, #1a1206, #0d0a04); border: 1px solid rgba(154,124,58,0.18); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; font-size: 64px; }
   .feat-visual::after { content: ''; position: absolute; inset: 12px; border: 1px dashed rgba(154,124,58,0.12); }
+  .project-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+  .project-tag { display: inline-block; padding: 6px 12px; border: 1px solid rgba(154,124,58,0.35); font-family: 'Special Elite', cursive; font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--aged-gold); }
+  .case-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 26px; background: rgba(154,124,58,0.14); border: 1px solid rgba(154,124,58,0.18); }
+  .case-meta div { background: rgba(10,8,3,0.58); padding: 13px 14px; }
+  .case-meta span { display: block; font-family: 'Special Elite', cursive; font-size: 7.5px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(196,168,130,0.42); margin-bottom: 6px; }
+  .case-meta strong { display: block; font-family: 'IM Fell English', serif; font-size: 13px; font-weight: 400; color: var(--sepia); }
 
   .acting-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-bottom: 56px; align-items: start; }
   .acting-intro .lead { font-size: 18px; }
   .acting-intro p { font-size: 14px; line-height: 1.88; color: var(--ink-mid); margin-top: 16px; }
+  .voice-feature { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 2px; border: 1px solid rgba(122,96,64,0.24); background: rgba(122,96,64,0.18); margin-bottom: 56px; }
+  .voice-panel { background: var(--paper-dark); padding: 34px; min-height: 100%; }
+  .voice-panel.alt { background: rgba(242,232,213,0.55); }
+  .voice-kicker { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--rust); margin-bottom: 14px; }
+  .voice-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; line-height: 1.18; color: var(--ink); margin-bottom: 8px; }
+  .voice-role { font-family: 'IM Fell English', serif; font-style: italic; font-size: 17px; color: var(--rust); margin-bottom: 18px; }
+  .voice-copy { font-size: 13.5px; color: var(--ink-mid); line-height: 1.82; margin-bottom: 18px; }
+  .voice-facts { list-style: none; display: grid; gap: 14px; }
+  .voice-facts li { padding-bottom: 14px; border-bottom: 1px solid rgba(122,96,64,0.16); }
+  .voice-facts li:last-child { border-bottom: none; padding-bottom: 0; }
+  .voice-fact-label { display: block; font-family: 'Special Elite', cursive; font-size: 8px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-faded); margin-bottom: 6px; }
+  .voice-fact-value { display: block; font-size: 13px; line-height: 1.65; color: var(--ink-mid); }
+  .voice-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
 
   .reel-section { margin-bottom: 56px; }
   .reel-label { font-family: 'Special Elite', cursive; font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--ink-faded); text-align: center; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
@@ -145,6 +177,16 @@
   .stunt-coming-soon { padding: 48px 32px; border: 1px dashed rgba(122,96,64,0.3); text-align: center; background: rgba(139,58,26,0.04); }
   .stunt-coming-soon p { font-family: 'IM Fell English', serif; font-style: italic; font-size: 16px; color: var(--ink-faded); }
 
+  .tech-lab { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 2px; background: rgba(154,124,58,0.14); border: 1px solid rgba(154,124,58,0.18); }
+  .tech-panel { background: #161008; padding: 38px; }
+  .tech-panel.signal { background: linear-gradient(145deg, rgba(95,127,103,0.16), rgba(63,49,95,0.18)), #120d07; }
+  .tech-emblem { width: 150px; height: 150px; border-radius: 50%; border: 1px solid rgba(154,124,58,0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 64px; background: radial-gradient(circle, rgba(95,127,103,0.3), rgba(22,16,8,0.8)); }
+  .tech-list { list-style: none; display: grid; gap: 16px; }
+  .tech-list li { border-bottom: 1px solid rgba(154,124,58,0.12); padding-bottom: 16px; }
+  .tech-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .tech-list strong { display: block; font-family: 'Playfair Display', serif; color: var(--paper); font-size: 18px; margin-bottom: 6px; }
+  .tech-list span { display: block; color: rgba(196,168,130,0.58); font-size: 13px; line-height: 1.75; }
+
   .btn { display: inline-block; padding: 12px 34px; background: var(--rust); font-family: 'Special Elite', cursive; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--paper); text-decoration: none; border: 1px solid var(--rust-light); transition: background 0.3s; position: relative; }
   .btn::before { content: ''; position: absolute; inset: 3px; border: 1px solid rgba(242,232,213,0.18); pointer-events: none; }
   .btn:hover { background: var(--rust-light); }
@@ -168,13 +210,26 @@
     nav { padding: 0 20px; }
     section, #games { padding: 70px 22px; }
     .about-layout, .game-card.feat, .acting-intro { grid-template-columns: 1fr; gap: 40px; }
+    .voice-feature { grid-template-columns: 1fr; }
     .games-grid { grid-template-columns: 1fr; }
     .credits-head, .cr { grid-template-columns: 64px 1fr 1fr; }
     .credits-head span:last-child, .cr .med { display: none; }
     .hero-creds { flex-direction: column; gap: 2px; }
+    .hero-paths { grid-template-columns: 1fr; }
     .cred + .cred { border-left: 1px solid rgba(154,124,58,0.25); }
     .hero-corner { display: none; }
     #cthulhu-left, #cthulhu-right { display: none !important; }
+    .case-meta, .tech-lab { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 620px) {
+    nav { height: auto; min-height: 60px; padding: 12px 18px; flex-direction: column; gap: 10px; }
+    .nav-links { gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .nav-links a { font-size: 8.5px; letter-spacing: 0.14em; }
+    #hero { padding-top: 170px; }
+    .game-card, .game-card.feat, .voice-panel, .tech-panel { padding: 30px 24px; }
+    .foot-links { flex-wrap: wrap; }
+    .foot-links a { border-right: 1px solid rgba(154,124,58,0.2); }
   }
 </style>
 </head>
@@ -184,8 +239,9 @@
   <a href="#hero" class="nav-logo">James Sypherd</a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#games">Games</a></li>
-    <li><a href="#acting">Acting</a></li>
+    <li><a href="#games">Work</a></li>
+    <li><a href="#acting">Voice</a></li>
+    <li><a href="#technical">Technical</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
@@ -208,6 +264,20 @@
     <div class="cred">M.S. Biomedical Engineering</div>
     <div class="cred">B.S. Biomedical Engineering</div>
     <div class="cred">Arizona State University</div>
+  </div>
+  <div class="hero-paths">
+    <a class="hero-path" href="#games">
+      <strong>Games</strong>
+      <span>Systems, prototypes, strange worlds</span>
+    </a>
+    <a class="hero-path" href="#acting">
+      <strong>Voice</strong>
+      <span>Characters, credits, reel-ready work</span>
+    </a>
+    <a class="hero-path" href="#technical">
+      <strong>Technical</strong>
+      <span>AI, mocap, tools, biomechanics</span>
+    </a>
   </div>
   <p class="hero-scroll">✦ &nbsp; Scroll to explore &nbsp; ✦</p>
 
@@ -233,6 +303,7 @@
 <script>
 (function() {
   const canvas = document.getElementById('cthulhu');
+  if (!canvas) return;
   const ctx = canvas.getContext('2d');
   let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   let time = 0;
@@ -513,12 +584,19 @@
 <section id="games">
   <div class="sec-head reveal">
     <div class="sec-num" style="color:rgba(196,168,130,0.4)">Chapter II</div>
-    <h2 style="color:var(--paper)">The <em style="color:var(--sepia)">Games</em></h2>
+    <h2 style="color:var(--paper)">Project <em style="color:var(--sepia)">Case Files</em></h2>
     <div class="orn"><span>✦ ✦ ✦</span></div>
+    <p class="section-note">A field archive of games, tools, voice credits, and technical worlds. Built to grow into detail pages without flattening every project into the same portfolio rectangle.</p>
+    <div class="portfolio-filter" aria-label="Filter project case files">
+      <button class="filter-btn active" type="button" data-filter="all">All</button>
+      <button class="filter-btn" type="button" data-filter="games">Games</button>
+      <button class="filter-btn" type="button" data-filter="voice">Voice</button>
+      <button class="filter-btn" type="button" data-filter="technical">Technical</button>
+    </div>
   </div>
   <div class="games-grid reveal">
 
-    <div class="game-card feat">
+    <div class="game-card feat" data-category="games" data-sigil="B">
       <div>
         <div class="feat-badge">Featured Title</div>
         <div class="game-type">Video Game · Roblox & UEFN</div>
@@ -528,11 +606,33 @@
           <span style="display:inline-block; padding:6px 16px; border:1px solid rgba(154,124,58,0.4); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--aged-gold);">In Development</span>
           <span style="display:inline-block; padding:6px 16px; border:1px solid rgba(154,124,58,0.4); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.25em; text-transform:uppercase; color:var(--aged-gold);">Roblox · Fortnite UEFN</span>
         </div>
+        <div class="case-meta">
+          <div><span>Role</span><strong>Sole Designer</strong></div>
+          <div><span>Focus</span><strong>Campus-scale systems</strong></div>
+          <div><span>Status</span><strong>In Development</strong></div>
+        </div>
       </div>
       <div class="feat-visual">🏐</div>
     </div>
 
-    <div class="game-card">
+    <div class="game-card" data-category="games voice" data-sigil="M">
+      <div class="game-type">Real-Time Card Game · Voice Performance · SilverJay Studio</div>
+      <div class="game-title">Masterworks of Horror</div>
+      <p class="game-desc">A fast-paced real-time card game that pits the great authors of literary horror — H.P. Lovecraft, Edgar Allan Poe, and their unsettling worlds — against one another. Each author is a deck with its own character variants and themed cards: Poe alone spans <em>Nevermore</em>, <em>Prince Prospero</em>, and <em>Madeline's Coffin</em>. James voices <strong>H.P. Lovecraft</strong>, a role that bridges the Games and Voice Acting sides of this portfolio: analytical design instincts feeding a physical, emotionally grounded, and quietly theatrical performance.</p>
+      <div class="project-tags">
+        <span class="project-tag">H.P. Lovecraft</span>
+        <span class="project-tag">Edgar Allan Poe</span>
+        <span class="project-tag">Real-Time Cards</span>
+        <span class="project-tag">Character Voice</span>
+        <span class="project-tag">Indie Game</span>
+      </div>
+      <div class="game-foot">
+        <span class="game-plat">Cards · Horror · Performance</span>
+        <a href="masterworks-of-horror.html" class="game-link">Case Study →</a>
+      </div>
+    </div>
+
+    <div class="game-card" data-category="games" data-sigil="T">
       <div class="game-type">Roguelike · Godot 4</div>
       <div class="game-title">Thunderwalker 2D</div>
       <p class="game-desc">A creepy 2D dungeon crawler inspired by Inscryption aesthetics. Hunt mythological creatures through 4 interconnected rooms, facing 3 enemy types and a Wendigo boss with 3-phase AI. Real-time combat with health management and procedural difficulty scaling.</p>
@@ -542,7 +642,7 @@
       </div>
     </div>
 
-    <div class="game-card">
+    <div class="game-card" data-category="games technical" data-sigil="I">
       <div class="game-type">Fitness Game · Unity 6</div>
       <div class="game-title">Imagine</div>
       <p class="game-desc">A sisyphean exercise game suite that ties rowing machines, cycling, and strength training to engaging game narratives. Integrates with Concept2 PM5 SDK and BLE heart rate monitors for real biometric feedback tied to gameplay progression.</p>
@@ -552,7 +652,7 @@
       </div>
     </div>
 
-    <div class="game-card">
+    <div class="game-card" data-category="games" data-sigil="B">
       <div class="game-type">Roblox · Micro-MMO</div>
       <div class="game-title">Brainrot Online</div>
       <p class="game-desc">A weekend-scale Roblox micro-MMO where players defend the last sane hub world against cursed meme creatures, algorithm corruption, and brainrot enemies. Designed around persistent progression, fast multiplayer, and MMO-lite scope that can actually ship.</p>
@@ -562,7 +662,7 @@
       </div>
     </div>
 
-    <div class="game-card">
+    <div class="game-card" data-category="games" data-sigil="H">
       <div class="game-type">Tabletop RPG · Card Game</div>
       <div class="game-title">Hunting Grounds</div>
       <p class="game-desc">A cooperative RPG card game for four players in the vein of Gloomhaven — with a twist. One rotating player takes on the role of the villain each combat. The debut campaign pits hunters against Dracula himself, with a system designed to support future expansion packs.</p>
@@ -572,7 +672,7 @@
       </div>
     </div>
 
-    <div class="game-card">
+    <div class="game-card" data-category="technical" data-sigil="C">
       <div class="game-type">Software · Engineering Tool</div>
       <div class="game-title">C3D → FBX Mocap Converter</div>
       <p class="game-desc">A conversion tool that transforms motion capture data from the biomechanics-standard .c3d format into .fbx files compatible with Unreal Engine 5's MetaHuman retargeting pipeline. Designed to help children's hospitals gamify biomechanics capture sessions.</p>
@@ -607,6 +707,58 @@
   </div>
 
   <!-- VOICE ACTING WORK -->
+  <div class="voice-feature reveal">
+    <div class="voice-panel">
+      <div class="voice-kicker">Featured Voice Role</div>
+      <div class="voice-title">Masterworks of Horror</div>
+      <div class="voice-role">H.P. Lovecraft, Voice Actor</div>
+      <p class="voice-copy">James voices H.P. Lovecraft in a real-time, act-based horror card battler set in the Cthulhu mythos. Players race the clock to destroy Masterworks across a candlelit, parchment-and-tentacle board, playing settings and spells like <em>Devil's Reef</em>, <em>The Awakening of Cthulhu</em>, <em>Eldritch Knowledge</em>, <em>Cask of Amontillado</em>, and the <em>Silver Key</em>, while forces like <em>Azathoth</em> and <em>Captain Dyer</em> answer back. The role gives the Voice Acting section a concrete game credit while tying naturally into the Games section.</p>
+      <p class="voice-copy">This slot is built to scale: future games can drop into the same case-study format with character, medium, release status, links, and supporting media.</p>
+      <div style="margin-top:22px;">
+        <img src="img/games/masterworks-banner.jpg" alt="Masterworks of Horror key art — Dracula, Lovecraft, Cthulhu, Poe, Frankenstein" style="width:100%;display:block;border:1px solid rgba(154,124,58,0.35);">
+        <div style="font-family:'Special Elite',cursive;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,168,130,0.55);margin-top:10px;text-align:center;">Key art &mdash; Dracula, Lovecraft, Cthulhu, Poe, Frankenstein</div>
+        <div style="margin-top:16px;">
+          <video src="img/games/masterworks-gameplay.mp4" poster="img/games/masterworks-gameplay-poster.jpg" autoplay muted loop playsinline preload="metadata" style="width:100%;display:block;border:1px solid rgba(154,124,58,0.35);"></video>
+          <div style="font-family:'Special Elite',cursive;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,168,130,0.55);margin-top:10px;text-align:center;">Trailer &mdash; gameplay in motion</div>
+        </div>
+        <div style="margin-top:16px;">
+          <img src="img/games/masterworks-tome.jpg" alt="Masterworks of Horror — the eldritch tome key art" style="width:100%;display:block;border:1px solid rgba(154,124,58,0.35);">
+          <div style="font-family:'Special Elite',cursive;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,168,130,0.55);margin-top:10px;text-align:center;">The eldritch tome &mdash; key art</div>
+        </div>
+        <div style="margin-top:16px;">
+          <img src="img/games/masterworks-title.jpg" alt="Masterworks of Horror — title screen key art" style="width:100%;display:block;border:1px solid rgba(154,124,58,0.35);">
+          <div style="font-family:'Special Elite',cursive;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,168,130,0.55);margin-top:10px;text-align:center;">Masterworks of Horror &mdash; title screen</div>
+        </div>
+        <div style="margin-top:16px;">
+          <img src="img/games/masterworks-card-frankenstein.jpg" alt="Masterworks of Horror — Frankenstein's Monster card render" style="width:100%;display:block;border:1px solid rgba(154,124,58,0.35);">
+          <div style="font-family:'Special Elite',cursive;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(196,168,130,0.55);margin-top:10px;text-align:center;">Card render &mdash; Frankenstein's Monster, Misunderstood Creation</div>
+        </div>
+      </div>
+      <div class="voice-actions">
+        <a href="masterworks-of-horror.html" class="btn">Case Study</a>
+        <a href="https://www.masterworksgame.com/" target="_blank" class="btn btn-o">Visit Game</a>
+        <a href="mailto:sypherdj1@gmail.com" class="btn btn-o">Contact</a>
+      </div>
+    </div>
+    <div class="voice-panel alt">
+      <div class="voice-kicker">Performance Notes</div>
+      <ul class="voice-facts">
+        <li>
+          <span class="voice-fact-label">Project</span>
+          <span class="voice-fact-value">Fast-paced real-time card game based on literary horror authors.</span>
+        </li>
+        <li>
+          <span class="voice-fact-label">Role</span>
+          <span class="voice-fact-value">H.P. Lovecraft, character voice performance for an indie game release.</span>
+        </li>
+        <li>
+          <span class="voice-fact-label">Portfolio Fit</span>
+          <span class="voice-fact-value">A clean bridge between James's game development work and character performance work.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
   <div class="reel-section reveal">
     <div class="reel-label"><span>✦ &nbsp; Voice Acting Work &nbsp; ✦</span></div>
     <p style="text-align: center; font-size: 14px; color: var(--ink-mid); margin-bottom: 32px; line-height: 1.8;">Select projects featuring voice performance and character work:</p>
@@ -663,34 +815,47 @@
 </section>
 </div>
 
-<!-- KATO SECTION -->
+<!-- TECHNICAL WORLDS -->
 <div class="dark-section">
-<section id="kato" style="max-width:1100px; margin:0 auto; padding:100px 60px;">
+<section id="technical" style="max-width:1100px; margin:0 auto; padding:100px 60px;">
   <div class="sec-head reveal">
     <div class="sec-num" style="color:rgba(196,168,130,0.4)">Chapter IV</div>
-    <h2 style="color:var(--paper)">Meet <em style="color:var(--sepia)">Kato</em></h2>
+    <h2 style="color:var(--paper)">Technical <em style="color:var(--sepia)">Worlds</em></h2>
     <div class="orn"><span>✦ ✦ ✦</span></div>
+    <p class="section-note">Engineering is part of the creative practice here: tools for bodies in motion, AI workflows for production, and prototypes that turn systems into play.</p>
   </div>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;" class="reveal">
-    <div style="text-align:center;">
-      <div style="width:160px; height:160px; border-radius:50%; background:linear-gradient(135deg,#2d1b4e,#1a1f3a); border:2px solid rgba(154,124,58,0.4); margin:0 auto 24px; display:flex; align-items:center; justify-content:center; font-size:72px;">🦾</div>
+  <div class="tech-lab reveal">
+    <div class="tech-panel signal" style="text-align:center;">
+      <div class="tech-emblem">🦾</div>
       <div style="font-family:'Playfair Display',serif; font-size:24px; color:var(--sepia); font-style:italic; margin-bottom:8px;">Kato</div>
       <div style="font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.3em; text-transform:uppercase; color:rgba(196,168,130,0.4);">AI · Ghost in the Machine</div>
+      <p style="font-size:13px; line-height:1.85; color:rgba(196,168,130,0.58); margin-top:24px;">James's personal AI infrastructure, used for daily automation, build support, site deployment, research, and rapid game-development workflows.</p>
     </div>
-    <div>
+    <div class="tech-panel">
       <div style="margin-bottom:24px; padding:20px; border:1px solid rgba(154,124,58,0.2); background:rgba(242,232,213,0.03);">
         <div style="font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.28em; text-transform:uppercase; color:rgba(196,168,130,0.5); margin-bottom:10px;">📄 Resume</div>
         <p style="font-size:14px; line-height:1.8; color:rgba(196,168,130,0.7); margin-bottom:14px;">Download James's full resume — Professor of Practice at the GAME School, game development, teaching, and motion capture work.</p>
-        <a href="assets/James_Sypherd_Resume.docx" download style="display:inline-block; padding:10px 18px; border:1px solid rgba(154,124,58,0.35); color:var(--aged-gold); text-decoration:none; font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase;">Download Resume →</a>
+        <a href="assets/James_Sypherd_Resume.pdf" download style="display:inline-block; padding:10px 18px; border:1px solid rgba(154,124,58,0.35); color:var(--aged-gold); text-decoration:none; font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase;">Download Resume →</a>
       </div>
-      <p style="font-family:'Playfair Display',serif; font-size:19px; font-style:italic; line-height:1.65; color:var(--sepia); margin-bottom:22px; border-left:3px solid var(--aged-gold); padding-left:22px;">"Be water, my friend. Adapt to the problem. Don't force a solution into a shape it doesn't fit."</p>
-      <p style="font-size:14px; line-height:1.9; color:rgba(196,168,130,0.6); margin-bottom:16px;">Kato is James's personal AI — a sharp-minded familiar that lives in his infrastructure and helps build the things you see on this page. Part engineer, part collaborator, part ghost in the machine.</p>
-      <p style="font-size:14px; line-height:1.9; color:rgba(196,168,130,0.6); margin-bottom:16px;">From orchestrating game development pipelines to deploying this very website, Kato works quietly in the background — managing memory, monitoring builds, and keeping things moving.</p>
-      <p style="font-size:14px; line-height:1.9; color:rgba(196,168,130,0.6);">Built on OpenClaw. Direct, resourceful, low noise. Exactly the kind of partner a builder needs.</p>
+      <ul class="tech-list">
+        <li>
+          <strong>Motion Capture and Biomechanics</strong>
+          <span>C3D to FBX conversion, MetaHuman retargeting paths, and game-facing tools for translating movement data into interactive production assets.</span>
+        </li>
+        <li>
+          <strong>AI and Game Production</strong>
+          <span>Governed AI tool audits, assistant workflows, promptable production systems, and course/lab tooling for game design education.</span>
+        </li>
+        <li>
+          <strong>Exercise Game Systems</strong>
+          <span>StrengthERG and Concept2 work that connects rowers, bikes, and strength reps to readable progression inside Unreal and Unity prototypes.</span>
+        </li>
+      </ul>
       <div style="margin-top:28px; display:flex; gap:12px; flex-wrap:wrap;">
-        <span style="padding:6px 16px; border:1px solid rgba(154,124,58,0.25); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--aged-gold);">Memory-Persistent</span>
-        <span style="padding:6px 16px; border:1px solid rgba(154,124,58,0.25); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--aged-gold);">Spec-Driven</span>
-        <span style="padding:6px 16px; border:1px solid rgba(154,124,58,0.25); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--aged-gold);">Always Building</span>
+        <span style="padding:6px 16px; border:1px solid rgba(154,124,58,0.25); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--aged-gold);">Unreal</span>
+        <span style="padding:6px 16px; border:1px solid rgba(154,124,58,0.25); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--aged-gold);">Unity</span>
+        <span style="padding:6px 16px; border:1px solid rgba(154,124,58,0.25); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--aged-gold);">Mocap</span>
+        <span style="padding:6px 16px; border:1px solid rgba(154,124,58,0.25); font-family:'Special Elite',cursive; font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:var(--aged-gold);">AI Workflows</span>
       </div>
     </div>
   </div>
@@ -711,6 +876,22 @@
 </footer>
 
 <script>
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.game-card[data-category]');
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      projectCards.forEach(card => {
+        const categories = card.dataset.category.split(' ');
+        card.classList.toggle('hidden', filter !== 'all' && !categories.includes(filter));
+      });
+    });
+  });
+
   const reveals = document.querySelectorAll('.reveal');
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
